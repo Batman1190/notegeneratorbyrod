@@ -6,11 +6,12 @@
     <title>"Work smarter, not harder."</title>
     <style>
         .container {
-            display: flex;
-            gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            grid-gap: 10px; /* Space between the iframes */
         }
         iframe {
-            width: 49%;
+            width: 100%; /* Make iframe take full width of grid cell */
             height: 500px;
             border: 1px solid #ccc;
         }
@@ -24,6 +25,7 @@
         <iframe src="file1.html"></iframe>
         <iframe src="file2.html"></iframe>
         <iframe src="file3.html"></iframe>
+        <iframe src="file4.html"></iframe>
     </div>
 
 </body>
