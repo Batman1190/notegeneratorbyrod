@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filipino Visa Note Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        .container {
+            max-width: 450px;
+            margin: auto;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            margin-bottom: 15px;
+        }
+        h2 {
+            color: #007BFF;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+        select, input, button, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        textarea {
+            height: 80px;
+            resize: none;
+            background: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Filipino Visa Note Generator</h2>
+
+        <label>Call Type:</label>
+        <select id="callType">
+            <option value="Inbound">Inbound</option>
+            <option value="Outbound">Outbound</option>
+        </select>
+
+        <label>Spoke with:</label>
+        <input type="text" id="who" placeholder="Enter name...">
+
+        <label>Reason for the Call:</label>
+        <select id="reason">
+            <option value="General Inquiry">General Inquiry</option>
+            <option value="Follow-up on Application">Follow-up on Application</option>
+            <option value="Document Submission">Document Submission</option>
+            <option value="Payment Concern">Payment Concern</option>
+            <option value="Looking for a Specific Agent">Looking for a Specific Agent</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label>Explanation:</label>
+        <input type="text" id="explanation" placeholder="Provide explanation...">
+
+        <label>Action Taken:</label>
+        <input type="text" id="action" placeholder="Enter action taken...">
+
+        <label>Follow-up Date (if any):</label>
+        <input type="date" id="followUpDate">
+
+        <label>Follow-up Time:</label>
+        <input type="time" id="followUpTime">
+
+        <label>Time Zone:</label>
+        <select id="timeZone">
+            <option value="PHT (Philippine Time)">PHT (Philippine Time)</option>
+            <option value="UTC">UTC</option>
+            <option value="EST (Eastern Standard Time)">EST (Eastern Standard Time)</option>
+            <option value="PST (Pacific Standard Time)">PST (Pacific Standard Time)</option>
+            <option value="CET (Central European Time)">CET (Central European Time)</option>
+        </select>
+
+        <button onclick="clearForm()">Clear Form</button>
+        <button onclick="generateNote()">Generate Note</button>
+        <button onclick="copyToClipboard()">Copy Note</button>
+
+        <h3>Generated Note:</h3>
+        <textarea id="output" readonly></textarea>
+    </div>
+
+    <div class="container">
+        <h2>Quick Links</h2>
+        <div>
+    <a href="https://admin.christianfilipina.com/admin/panel.php" target="_blank">Christian Filipina Admin Panel</a><br>
+    <a href="https://egov.uscis.gov/" target="_blank">USCIS Case Status</a><br>
+    <a href="https://ceac.state.gov/ceacstattracker/status.aspx" target="_blank">CEAC Visa Status Tracker</a><br>
+    <a href="https://www.worldtimebuddy.com/" target="_blank">World Time Buddy</a><br>
+    <a href="https://etravel.gov.ph/" target="_blank">Philippines eTravel</a><br>
+    <a href="https://docs.google.com/document/d/1bbvM8zRiK1DRaT8inzD4BocglLIy20j7PBLodjTr7dY/edit?tab=t.0#heading=h.wh2y57d07agm" target="_blank">SRC Script</a><br>
+    <a href="https://us22.worksnaps.com/app/track_time.cgi" target="_blank">Worksnaps Time Tracker</a>
+</div>
+    </div>
+
+    <script>
+        function generateNote() {
+            let output = document.getElementById("output");
+            let note = `${document.getElementById("callType").value} - Spoke with ${document.getElementById("who").value} - Reason: ${document.getElementById("reason").value} - Explanation: ${document.getElementById("explanation").value} - Action: ${document.getElementById("action").value}`;
+            if (document.getElementById("followUpDate").value) {
+                note += ` - Follow-up on: ${document.getElementById("followUpDate").value}`;
+                if (document.getElementById("followUpTime").value) {
+                    note += ` at ${document.getElementById("followUpTime").value} ${document.getElementById("timeZone").value}`;
+                }
+            }
+            output.value = note;
+        }
+
+        function copyToClipboard() {
+            let output = document.getElementById("output");
+            output.select();
+            document.execCommand("copy");
+            alert("Note copied to clipboard!");
+        }
+
+        function clearForm() {
+            document.getElementById("callType").value = "Inbound";
+            document.getElementById("who").value = "";
+            document.getElementById("reason").value = "General Inquiry";
+            document.getElementById("explanation").value = "";
+            document.getElementById("action").value = "";
+            document.getElementById("followUpDate").value = "";
+            document.getElementById("followUpTime").value = "";
+            document.getElementById("timeZone").value = "PHT (Philippine Time)";
+            document.getElementById("output").value = "";
+        }
+    </script>
+</body>
+</html>

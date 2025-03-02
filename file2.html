@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filipino Visa Note Generator II</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            font-size: 12px;
+            margin: 20px; 
+            background-color: #d3d3d3; 
+            color: #000000;
+            text-align: center;
+        }
+        .container { 
+            max-width: 500px; 
+            margin: auto; 
+            background: #f0f0f0; 
+            padding: 20px; 
+            border-radius: 15px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 { 
+            color: #003366; 
+            font-size: 20px; 
+        }
+        label { 
+            font-weight: bold; 
+            display: block; 
+            margin-top: 10px; 
+            color: #333;
+        }
+        textarea, input, select { 
+            width: 100%; 
+            padding: 5px; 
+            margin-top: 5px; 
+            border-radius: 5px; 
+            border: 1px solid #003366;
+            font-size: 12px;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .radio-group { 
+            display: flex; 
+            gap: 10px; 
+            margin-top: 5px; 
+            justify-content: center;
+            align-items: center;
+        }
+        button { 
+            margin-top: 10px; 
+            padding: 5px; 
+            cursor: pointer; 
+            background-color: #003366; 
+            color: white; 
+            border: none; 
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        button:hover {
+            background-color: #002244;
+        }
+        h3 { 
+            color: #003366; 
+            font-size: 12px;
+        }
+    </style>
+    <script>
+        function toggleTicketInput(show) {
+            document.getElementById("ticket_number").style.display = show ? "block" : "none";
+        }
+
+        function generateNote() {
+            let sequenceMoved = document.querySelector('input[name="sequence_moved"]:checked');
+            let ticketType = document.querySelector('input[name="ticket_type"]:checked');
+            let ticketNumber = document.getElementById("ticket_number").value;
+            let reason = document.getElementById("reason").value;
+            let responsibility = document.querySelector('input[name="responsibility"]:checked');
+            let details = document.getElementById("details").value;
+            let followupDate = document.getElementById("followup_date").value;
+            let followupTime = document.getElementById("followup_time").value;
+            let timezone = document.getElementById("timezone").value;
+
+            let note = `Sequence Moved: ${sequenceMoved ? sequenceMoved.value : 'N/A'}\n` +
+                       `Zoho Ticket: ${ticketType ? ticketType.value : 'N/A'} ${ticketNumber ? ticketNumber : ''}\n` +
+                       `Reason for Movement/Non-Movement of Sequence: ${reason}\n` +
+                       `Next Interaction Responsibility: ${responsibility ? responsibility.value : 'N/A'}\n` +
+                       `Details: ${details}`;
+            
+            if (followupDate) {
+                note += `\nFollow-Up Date: ${followupDate}\nFollow-Up Time: ${followupTime} ${timezone}`;
+            }
+
+            document.getElementById("generated_note").value = note;
+        }
+
+        function clearForm() {
+            document.querySelectorAll("input, textarea, select").forEach(el => {
+                if (el.type !== "radio") el.value = "";
+            });
+            document.querySelectorAll("input[type='radio']").forEach(el => el.checked = false);
+            document.getElementById("ticket_number").style.display = "none";
+        }
+
+        function clearGeneratedNote() {
+            document.getElementById("generated_note").value = "";
+        }
+
+        function copyGeneratedNote() {
+            let noteField = document.getElementById("generated_note");
+            noteField.select();
+            document.execCommand("copy");
+        }
+
+        function downloadNote() {
+            let text = document.getElementById("generated_note").value;
+            let blob = new Blob([text], { type: "text/plain" });
+            let a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "Visa_Note.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Filipino Visa Note Generator II</h2>
+        
+        <label>Sequence Moved:</label>
+        <div class="radio-group">
+            <input type="radio" name="sequence_moved" value="Yes"> Yes
+            <input type="radio" name="sequence_moved" value="No"> No
+        </div>
+        
+        <label>Zoho Ticket:</label>
+        <div class="radio-group">
+            <input type="radio" name="ticket_type" value="Email" onclick="toggleTicketInput(true)"> Email
+            <input type="radio" name="ticket_type" value="Call" onclick="toggleTicketInput(false)"> Call
+        </div>
+        <input type="text" id="ticket_number" placeholder="Enter Ticket #" style="display: none;">
+        
+        <label>Reason for Movement/Non-Movement of Sequence:</label>
+        <textarea id="reason" placeholder="Reason for Movement/Non-Movement of Sequence:"></textarea>
+        
+        <label>Next Interaction Responsibility:</label>
+        <div class="radio-group">
+            <input type="radio" name="responsibility" value="Support"> Support
+            <input type="radio" name="responsibility" value="VPC"> VPC
+            <input type="radio" name="responsibility" value="VPE"> VPE
+            <input type="radio" name="responsibility" value="Paralegal"> Paralegal
+            <input type="radio" name="responsibility" value="VA"> VA
+        </div>
+        
+        <label>Details:</label>
+        <textarea id="details"></textarea>
+        
+        <label>Follow-Up Date:</label>
+        <input type="date" id="followup_date">
+        
+        <label>Follow-Up Time:</label>
+        <input type="time" id="followup_time">
+        
+        <label>Time Zone:</label>
+        <select id="timezone">
+            <option value="EST">EST</option>
+            <option value="CST">CST</option>
+            <option value="MST">MST</option>
+            <option value="PST">PST</option>
+            <option value="PHT">PHT (Philippine Time)</option>
+        </select>
+        
+        <button onclick="generateNote()">Generate Note</button>
+        <button onclick="clearForm()">Clear Form</button>
+        <button onclick="clearGeneratedNote()">Clear Note</button>
+        <button onclick="copyGeneratedNote()">Copy Note</button>
+        <button onclick="downloadNote()">Download Note</button>
+        
+        <h3>Generated Note:</h3>
+        <textarea id="generated_note" readonly></textarea>
+    </div>
+</body>
+</html>
