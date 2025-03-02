@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empathy Statements</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .response-box {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+        }
+        .radio-group {
+            margin-top: 10px;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Empathy Statements for Visa Assistance</h2>
+    
+    <div class="radio-group">
+        <label><input type="radio" name="scenario" value="denied" onclick="showEmpathy()"> Visa Application Denied</label>
+        <label><input type="radio" name="scenario" value="delay" onclick="showEmpathy()"> Visa Processing Delay</label>
+        <label><input type="radio" name="scenario" value="missingDocs" onclick="showEmpathy()"> Missing Documents</label>
+        <label><input type="radio" name="scenario" value="needNextStep" onclick="showEmpathy()"> Need to Know the Next Step</label>
+        <label><input type="radio" name="scenario" value="needRightVisa" onclick="showEmpathy()"> Need to Inquire About the Right Visa for Fiancée</label>
+        <label><input type="radio" name="scenario" value="needSpecificAgent" onclick="showEmpathy()"> Need to Speak with a Specific Agent</label>
+        <label><input type="radio" name="scenario" value="needTravelAgent" onclick="showEmpathy()"> Need to Speak with the Travel Agent</label>
+        <label><input type="radio" name="scenario" value="needExtendStay" onclick="showEmpathy()"> Need to Know How to Extend Stay in the Philippines</label>
+        <label><input type="radio" name="scenario" value="noUpdateAgent" onclick="showEmpathy()"> Not Receiving Any Update from the Assigned Agent</label>
+        <label><input type="radio" name="scenario" value="urgent" onclick="showEmpathy()"> Urgent Travel Plans</label>
+    </div>
+
+    <div class="response-box" id="responseBox">Your empathy statement will appear here.</div>
+
+    <script>
+        function showEmpathy() {
+            const responses = {
+                denied: "I'm really sorry to hear that your visa application was denied. I know this must be disappointing. If you'd like, I can help you understand the possible next steps.",
+                delay: "I understand how frustrating it must be to experience a delay in your visa processing. Please know that we are doing everything possible to get an update for you.",
+                missingDocs: "I understand that gathering all the required documents can be overwhelming. Let me guide you through the missing documents so we can move forward smoothly.",
+                needNextStep: "I understand that knowing the next step is important. Let me provide you with the details.",
+                needRightVisa: "I understand how important it is to find the right visa for your fiancée. I’m happy to assist with your inquiry.",
+                needSpecificAgent: "I understand that you need to speak with a specific agent. Let me check and connect you.",
+                needTravelAgent: "I understand that you need to speak with the travel agent. Let me assist you with that.",
+                needExtendStay: "I understand that you need information on extending your stay in the Philippines. Let me assist you with that.",
+                noUpdateAgent: "I understand how frustrating it can be not to receive any updates. I’ll look into this for you and provide any available information as soon as possible.",
+                urgent: "I know how stressful it can be to have urgent travel plans. I'll do my best to provide you with the fastest possible assistance."
+            };
+
+            const selectedScenario = document.querySelector('input[name="scenario"]:checked');
+            const responseBox = document.getElementById("responseBox");
+
+            if (selectedScenario) {
+                responseBox.textContent = responses[selectedScenario.value];
+            } else {
+                responseBox.textContent = "Your empathy statement will appear here.";
+            }
+        }
+    </script>
+</body>
+</html>
