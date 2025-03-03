@@ -7,24 +7,24 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <style>
     body {
-        font-size: 14px; /* Reduced font size */
-        color: #333; /* Dark grey text */
-        background-color: #f2f2f2; /* Light grey background */
+        font-size: 14px;
+        color: #333;
+        background-color: #f2f2f2;
     }
     .container {
-        background-color: transparent; /* Make container background transparent */
+        background-color: transparent;
     }
     h1 {
-        font-size: 24px; /* Reduced heading size */
+        font-size: 24px;
     }
     label {
-        font-size: 14px; /* Reduced label font size */
+        font-size: 14px;
     }
     input, textarea, select {
-        font-size: 14px; /* Reduced input font size */
+        font-size: 14px;
     }
     .btn {
-        font-size: 14px; /* Reduced button font size */
+        font-size: 14px;
     }
 </style>
 <script>
@@ -71,8 +71,19 @@ function generateNote() {
     note += "Next Interaction Responsibility: " + responsibility + "\n";
 
     note += "Details: " + document.getElementById("details").value + "\n";
-    note += "Follow-Up Date: " + document.getElementById("followUpDate").value + "\n";
-    note += "Follow-Up Time: " + document.getElementById("followUpTime").value + " " + document.getElementById("timeZone").value + "\n";
+
+    // Check if Follow-Up Date is provided
+    let followUpDate = document.getElementById("followUpDate").value;
+    if (followUpDate) {
+        note += "Follow-Up Date: " + followUpDate + "\n";
+
+        // Check if Follow-Up Time is provided
+        let followUpTime = document.getElementById("followUpTime").value;
+        if (followUpTime) {
+            let timeZone = document.getElementById("timeZone").value;
+            note += "Follow-Up Time: " + followUpTime + " " + timeZone + "\n";
+        }
+    }
 
     document.getElementById("generatedNote").value = note;
 }
