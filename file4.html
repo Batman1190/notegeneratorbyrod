@@ -59,11 +59,14 @@
             <label>
                 <input type="radio" name="topic" value="documents" onclick="showAnswer('documents')"> Documents for K1 Visa
             </label>
+            <label>
+                <input type="radio" name="topic" value="noa1" onclick="showAnswer('noa1')"> NOA1 (Notice of Action 1)
+            </label>
         </div>
 
         <div id="k1" class="answer">
             <h3>K1 Visa</h3>
-            <p>A K1 visa is a type of visa that allows the fiancé of a U.S. citizen to enter the United States to get married. After entering the U.S., the couple must marry within 90 days. Once married, the fiancé can apply for a Green Card to live and work in the U.S. permanently.</p>
+            <p>A K1 visa allows the fiancé of a U.S. citizen to enter the United States to get married. After entering the U.S., the couple must marry within 90 days. Once married, the fiancé can apply for a Green Card.</p>
         </div>
 
         <div id="requirements" class="answer">
@@ -73,34 +76,33 @@
 
         <div id="process" class="answer">
             <h3>K1 Visa Process</h3>
-            <p>The K1 visa application process typically takes several months (8-15 months), but processing times can vary depending on the U.S. Embassy or Consulate handling your case.</p>
+            <p>The K1 visa application process typically takes several months (8-15 months), but processing times can vary.</p>
         </div>
 
         <div id="documents" class="answer">
             <h3>Documents for K1 Visa</h3>
-            <p>Documents required for a K1 visa usually include:
-
-Proof of your relationship: This can include photos together, travel records, communication logs. Evidence of meeting in person within the past two years is typically required.
-
-Financial support evidence: The U.S. petitioner must provide proof of their ability to financially support their fiancé(e). This includes submitting an Affidavit of Support (Form I-134), recent tax returns, pay stubs, or bank statements to show sufficient income or assets.
-
-Proof of U.S. citizenship for the petitioner: This could include a copy of the petitioner’s birth certificate, passport, or naturalization certificate to prove they are a U.S. citizen.
-
-These documents help ensure that the relationship is genuine and that the fiancé(e) will not become a financial burden on the U.S. government.</p>
+            <p>Required documents include proof of your relationship, financial support evidence, and proof of U.S. citizenship for the petitioner.</p>
         </div>
 
+        <div id="noa1" class="answer">
+            <h3>NOA1 (Notice of Action 1)</h3>
+            <p>NOA1 is the first official receipt notice issued by USCIS after receiving a petition, such as Form I-129F (for a fiancé(e) visa) or Form I-130 (for a spousal visa).</p>
+            <ul>
+                <li><strong>Purpose:</strong> Confirms that USCIS has received the petition and started processing.</li>
+                <li><strong>Processing Time:</strong> Typically issued 1–3 weeks after submission.</li>
+                <li><strong>Receipt Number:</strong> Includes a 13-character case number (e.g., WAC, LIN, MSC, or EAC followed by numbers).</li>
+                <li><strong>Next Step:</strong> Wait for NOA2 (Approval Notice), which can take several months.</li>
+            </ul>
+            <p>NOA1 does not indicate approval—it only acknowledges receipt and that the case is in progress.</p>
+        </div>
     </div>
 
     <script>
-        // Function to show the answer based on selected topic
         function showAnswer(topic) {
-            // Hide all answers
             const answers = document.querySelectorAll('.answer');
             answers.forEach(answer => {
                 answer.style.display = 'none';
             });
-
-            // Show the answer for the selected topic
             const selectedAnswer = document.getElementById(topic);
             if (selectedAnswer) {
                 selectedAnswer.style.display = 'block';
