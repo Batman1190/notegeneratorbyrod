@@ -1,183 +1,183 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Filipino Visa Note Generator II</title>
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            font-size: 12px;
-            margin: 20px; 
-            background-color: #d3d3d3; 
-            color: #000000;
-            text-align: center;
-        }
-        .container { 
-            max-width: 500px; 
-            margin: auto; 
-            background: #f0f0f0; 
-            padding: 20px; 
-            border-radius: 15px; 
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 { 
-            color: #003366; 
-            font-size: 20px; 
-        }
-        label { 
-            font-weight: bold; 
-            display: block; 
-            margin-top: 10px; 
-            color: #333;
-        }
-        textarea, input, select { 
-            width: 100%; 
-            padding: 5px; 
-            margin-top: 5px; 
-            border-radius: 5px; 
-            border: 1px solid #003366;
-            font-size: 12px;
-            background-color: #ffffff;
-            color: #000000;
-        }
-        .radio-group { 
-            display: flex; 
-            gap: 10px; 
-            margin-top: 5px; 
-            justify-content: center;
-            align-items: center;
-        }
-        button { 
-            margin-top: 10px; 
-            padding: 5px; 
-            cursor: pointer; 
-            background-color: #003366; 
-            color: white; 
-            border: none; 
-            border-radius: 5px;
-            font-size: 12px;
-        }
-        button:hover {
-            background-color: #002244;
-        }
-        h3 { 
-            color: #003366; 
-            font-size: 12px;
-        }
-    </style>
-    <script>
-        function toggleTicketInput(show) {
-            document.getElementById("ticket_number").style.display = show ? "block" : "none";
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filipino Visa Note Generator II</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+    body {
+        font-size: 14px; /* Reduced font size */
+        color: #333; /* Dark grey text */
+        background-color: #f2f2f2; /* Light grey background */
+    }
+    .container {
+        background-color: transparent; /* Make container background transparent */
+    }
+    h1 {
+        font-size: 24px; /* Reduced heading size */
+    }
+    label {
+        font-size: 14px; /* Reduced label font size */
+    }
+    input, textarea, select {
+        font-size: 14px; /* Reduced input font size */
+    }
+    .btn {
+        font-size: 14px; /* Reduced button font size */
+    }
+</style>
+<script>
+function showTicketInput(value) {
+    document.getElementById("ticketInput").style.display = value === 'Email' ? 'block' : 'none';
+}
 
-        function generateNote() {
-            let sequenceMoved = document.querySelector('input[name="sequence_moved"]:checked');
-            let ticketType = document.querySelector('input[name="ticket_type"]:checked');
-            let ticketNumber = document.getElementById("ticket_number").value;
-            let reason = document.getElementById("reason").value;
-            let responsibility = document.querySelector('input[name="responsibility"]:checked');
-            let details = document.getElementById("details").value;
-            let followupDate = document.getElementById("followup_date").value;
-            let followupTime = document.getElementById("followup_time").value;
-            let timezone = document.getElementById("timezone").value;
+function toggleInput(option, inputId) {
+    document.getElementById("movementReasonBox").style.display = 'none';
+    document.getElementById("nonMovementReasonBox").style.display = 'none';
 
-            let note = `Sequence Moved: ${sequenceMoved ? sequenceMoved.value : 'N/A'}\n` +
-                       `Zoho Ticket: ${ticketType ? ticketType.value : 'N/A'} ${ticketNumber ? ticketNumber : ''}\n` +
-                       `Reason for Movement/Non-Movement of Sequence: ${reason}\n` +
-                       `Next Interaction Responsibility: ${responsibility ? responsibility.value : 'N/A'}\n` +
-                       `Details: ${details}`;
-            
-            if (followupDate) {
-                note += `\nFollow-Up Date: ${followupDate}\nFollow-Up Time: ${followupTime} ${timezone}`;
-            }
+    if (option.value === 'movement') {
+        document.getElementById("movementReasonBox").style.display = 'block';
+    } else if (option.value === 'nonMovement') {
+        document.getElementById("nonMovementReasonBox").style.display = 'block';
+    }
+}
 
-            document.getElementById("generated_note").value = note;
-        }
+function toggleResponsibilityInput(option) {
+    document.getElementById("otherResponsibilityBox").style.display = option.value === 'other' ? 'block' : 'none';
+}
 
-        function clearForm() {
-            document.querySelectorAll("input, textarea, select").forEach(el => {
-                if (el.type !== "radio") el.value = "";
-            });
-            document.querySelectorAll("input[type='radio']").forEach(el => el.checked = false);
-            document.getElementById("ticket_number").style.display = "none";
-        }
+function generateNote() {
+    let note = "Sequence Moved: " + (document.querySelector('input[name="sequenceMoved"]:checked')?.value || '') + "\n";
+    let zoho = document.querySelector('input[name="zohoTicket"]:checked')?.value || '';
+    note += "Zoho Ticket: " + zoho;
+    if (zoho === "Email") {
+        let ticket = document.getElementById("ticketNumber").value;
+        if (ticket) note += " - Ticket #: " + ticket;
+    }
+    note += "\n";
 
-        function clearGeneratedNote() {
-            document.getElementById("generated_note").value = "";
-        }
+    let reasonType = document.querySelector('input[name="reasonType"]:checked')?.value || '';
+    if (reasonType === "movement") {
+        note += "Reason for Movement: " + document.getElementById("movementReason").value + "\n";
+    } else if (reasonType === "nonMovement") {
+        note += "Reason for Non-Movement of Sequence: " + document.getElementById("nonMovementReason").value + "\n";
+    }
 
-        function copyGeneratedNote() {
-            let noteField = document.getElementById("generated_note");
-            noteField.select();
-            document.execCommand("copy");
-        }
+    let responsibility = document.querySelector('input[name="responsibility"]:checked')?.value || '';
+    if (responsibility === "other") {
+        responsibility = document.getElementById("otherResponsibility").value;
+    }
+    note += "Next Interaction Responsibility: " + responsibility + "\n";
 
-        function downloadNote() {
-            let text = document.getElementById("generated_note").value;
-            let blob = new Blob([text], { type: "text/plain" });
-            let a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "Visa_Note.txt";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-    </script>
+    note += "Details: " + document.getElementById("details").value + "\n";
+    note += "Follow-Up Date: " + document.getElementById("followUpDate").value + "\n";
+    note += "Follow-Up Time: " + document.getElementById("followUpTime").value + " " + document.getElementById("timeZone").value + "\n";
+
+    document.getElementById("generatedNote").value = note;
+}
+
+function copyNote() {
+    let note = document.getElementById("generatedNote");
+    note.select();
+    document.execCommand("copy");
+    alert("Note copied to clipboard!");
+}
+
+function clearForm() {
+    document.getElementById("noteForm").reset();
+    document.getElementById("generatedNote").value = "";
+    document.getElementById("ticketInput").style.display = 'none';
+    document.getElementById("movementReasonBox").style.display = 'none';
+    document.getElementById("nonMovementReasonBox").style.display = 'none';
+    document.getElementById("otherResponsibilityBox").style.display = 'none';
+}
+</script>
 </head>
 <body>
-    <div class="container">
-        <h2>Filipino Visa Note Generator II</h2>
-        
-        <label>Sequence Moved:</label>
-        <div class="radio-group">
-            <input type="radio" name="sequence_moved" value="Yes"> Yes
-            <input type="radio" name="sequence_moved" value="No"> No
-        </div>
-        
-        <label>Zoho Ticket:</label>
-        <div class="radio-group">
-            <input type="radio" name="ticket_type" value="Email" onclick="toggleTicketInput(true)"> Email
-            <input type="radio" name="ticket_type" value="Call" onclick="toggleTicketInput(false)"> Call
-        </div>
-        <input type="text" id="ticket_number" placeholder="Enter Ticket #" style="display: none;">
-        
-        <label>Reason for Movement/Non-Movement of Sequence:</label>
-        <textarea id="reason" placeholder="Reason for Movement/Non-Movement of Sequence:"></textarea>
-        
-        <label>Next Interaction Responsibility:</label>
-        <div class="radio-group">
-            <input type="radio" name="responsibility" value="Support"> Support
-            <input type="radio" name="responsibility" value="VPC"> VPC
-            <input type="radio" name="responsibility" value="VPE"> VPE
-            <input type="radio" name="responsibility" value="Paralegal"> Paralegal
-            <input type="radio" name="responsibility" value="VA"> VA
-        </div>
-        
-        <label>Details:</label>
-        <textarea id="details"></textarea>
-        
-        <label>Follow-Up Date:</label>
-        <input type="date" id="followup_date">
-        
-        <label>Follow-Up Time:</label>
-        <input type="time" id="followup_time">
-        
-        <label>Time Zone:</label>
-        <select id="timezone">
-            <option value="EST">EST</option>
-            <option value="CST">CST</option>
-            <option value="MST">MST</option>
-            <option value="PST">PST</option>
-            <option value="PHT">PHT (Philippine Time)</option>
-        </select>
-        
-        <button onclick="generateNote()">Generate Note</button>
-        <button onclick="clearForm()">Clear Form</button>
-        <button onclick="clearGeneratedNote()">Clear Note</button>
-        <button onclick="copyGeneratedNote()">Copy Note</button>
-        <button onclick="downloadNote()">Download Note</button>
-        
-        <h3>Generated Note:</h3>
-        <textarea id="generated_note" readonly></textarea>
+<div class="max-w-4xl mx-auto shadow-xl rounded-lg p-8 container">
+<h1 class="text-2xl font-bold text-center mb-6">Filipino Visa Note Generator II</h1>
+<form id="noteForm">
+<div class="mb-4">
+    <label class="block font-semibold">Sequence Moved:</label>
+    <label><input type="radio" name="sequenceMoved" value="Yes"> Yes</label>
+    <label><input type="radio" name="sequenceMoved" value="No"> No</label>
+</div>
+
+<div class="mb-4">
+    <label class="block font-semibold">Zoho Ticket:</label>
+    <label><input type="radio" name="zohoTicket" value="Email" onclick="showTicketInput(this.value)"> Email</label>
+    <label><input type="radio" name="zohoTicket" value="Call" onclick="showTicketInput(this.value)"> Call</label>
+    <label><input type="radio" name="zohoTicket" value="N/A" onclick="showTicketInput(this.value)"> N/A</label>
+    <div id="ticketInput" style="display:none;">
+        <input type="text" id="ticketNumber" placeholder="Ticket #" class="border rounded p-2 w-full">
     </div>
+</div>
+
+<div class="mb-4">
+    <label class="block font-semibold">Reason:</label>
+    <label><input type="radio" name="reasonType" value="movement" onclick="toggleInput(this, 'movementReasonBox')"> Reason for Movement</label>
+    <label><input type="radio" name="reasonType" value="nonMovement" onclick="toggleInput(this, 'nonMovementReasonBox')"> Non-Movement of Sequence</label>
+</div>
+
+<div id="movementReasonBox" style="display:none;" class="mb-4">
+    <label class="block font-semibold">Reason for Movement:</label>
+    <textarea id="movementReason" class="border rounded p-2 w-full" placeholder="Enter Reason for Movement"></textarea>
+</div>
+
+<div id="nonMovementReasonBox" style="display:none;" class="mb-4">
+    <label class="block font-semibold">Reason for Non-Movement of Sequence:</label>
+    <textarea id="nonMovementReason" class="border rounded p-2 w-full" placeholder="Enter Reason for Non-Movement"></textarea>
+</div>
+
+<div class="mb-4">
+    <label class="block font-semibold">Next Interaction Responsibility:</label>
+    <label><input type="radio" name="responsibility" value="Support" onclick="toggleResponsibilityInput(this)"> Support</label>
+    <label><input type="radio" name="responsibility" value="PSA" onclick="toggleResponsibilityInput(this)"> PSA</label>
+    <label><input type="radio" name="responsibility" value="VPE" onclick="toggleResponsibilityInput(this)"> VPE</label>
+    <label><input type="radio" name="responsibility" value="Paralegal" onclick="toggleResponsibilityInput(this)"> Paralegal</label>
+    <label><input type="radio" name="responsibility" value="VA" onclick="toggleResponsibilityInput(this)"> VA</label>
+    <label><input type="radio" name="responsibility" value="VC" onclick="toggleResponsibilityInput(this)"> VC</label>
+    <label><input type="radio" name="responsibility" value="other" onclick="toggleResponsibilityInput(this)"> Other</label>
+    <div id="otherResponsibilityBox" style="display:none;">
+        <input type="text" id="otherResponsibility" class="border rounded p-2 w-full" placeholder="Specify Responsibility">
+    </div>
+</div>
+
+<div class="mb-4">
+    <label class="block font-semibold">Details:</label>
+    <textarea id="details" class="border rounded p-2 w-full" placeholder="Enter Details"></textarea>
+</div>
+
+<div class="grid grid-cols-3 gap-4">
+    <div>
+        <label class="block font-semibold">Follow-Up Date:</label>
+        <input type="date" id="followUpDate" class="border rounded p-2 w-full">
+    </div>
+    <div>
+        <label class="block font-semibold">Follow-Up Time:</label>
+        <input type="time" id="followUpTime" class="border rounded p-2 w-full">
+    </div>
+    <div>
+        <label class="block font-semibold">Time Zone:</label>
+        <select id="timeZone" class="border rounded p-2 w-full">
+            <option>Eastern Time</option>
+            <option>Central Time</option>
+            <option>Mountain Time</option>
+            <option>Pacific Time</option>
+            <option>Philippine Time</option>
+        </select>
+    </div>
+</div>
+
+<div class="mt-6 space-x-4">
+    <button type="button" onclick="generateNote()" class="bg-blue-500 text-white px-4 py-2 rounded btn">Generate Note</button>
+    <button type="button" onclick="copyNote()" class="bg-green-500 text-white px-4 py-2 rounded btn">Copy Note</button>
+    <button type="button" onclick="clearForm()" class="bg-red-500 text-white px-4 py-2 rounded btn">Clear Form</button>
+</div>
+
+<textarea id="generatedNote" class="border rounded p-2 w-full mt-6" rows="8" readonly></textarea>
+</form>
+</div>
 </body>
 </html>
