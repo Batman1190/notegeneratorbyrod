@@ -177,8 +177,58 @@
                     'N': [
                         { id: 'noa1', name: 'NOA1 (Notice of Action 1)', desc: 'The first official receipt notice issued by USCIS after receiving a petition.' },
                         { id: 'nvc', name: 'National Visa Center (NVC)', desc: 'The agency that processes immigrant visa applications before sending them to a U.S. embassy.' }
-                    ]
-                };
+                    ],
+                    'M': [
+        { id: 'medicalExam', name: 'Medical Examination', desc: 'A required health check-up for K1, CR1, and AOS applicants conducted by an authorized panel physician.' },
+        { id: 'marriageCert', name: 'Marriage Certificate', desc: 'An official document proving a legal marriage, required for CR1 and AOS applications.' }
+    ],
+
+    'N': [
+        { id: 'noa1', name: 'NOA1 (Notice of Action 1)', desc: 'The first official receipt notice issued by USCIS after receiving a petition.' },
+        { id: 'nvc', name: 'National Visa Center (NVC)', desc: 'The agency that processes immigrant visa applications before sending them to a U.S. embassy.' },
+        { id: 'noticeAction', name: 'Notice of Action (Form I-797)', desc: 'A USCIS document providing updates on a petition\'s status.' }
+    ],
+
+    'O': [
+        { id: 'overstay', name: 'Overstay', desc: 'When a visa holder remains in the U.S. beyond their authorized period of stay.' }
+    ],
+
+    'P': [
+        { id: 'petitioner', name: 'Petitioner', desc: 'The U.S. citizen who files a visa petition for a fiancé(e) or spouse.' },
+        { id: 'policeClearance', name: 'Police Clearance Certificate', desc: 'A document proving that a visa applicant has no criminal record in their country of residence.' },
+        { id: 'publicCharge', name: 'Public Charge Rule', desc: 'A policy determining whether an applicant is likely to rely on government benefits and may be denied entry or adjustment of status.' }
+    ],
+    'R': [
+        { id: 'rfe', name: 'Request for Evidence (RFE)', desc: 'A USCIS notice requesting additional documents or clarification on an application.' }
+    ],
+
+    'S': [
+        { id: 'ssn', name: 'Social Security Number (SSN)', desc: 'A unique number assigned to individuals in the U.S. for identification and work purposes.' },
+        { id: 'spousalVisa', name: 'Spousal Visa (CR1/IR1 Visa)', desc: 'A visa category allowing foreign spouses of U.S. citizens to enter and live in the U.S. as permanent residents.' },
+        { id: 'supportingDocs', name: 'Supporting Documents', desc: 'Additional paperwork submitted with petitions or applications, such as financial records and proof of relationship.' }
+    ],
+
+    'T': [
+        { id: 'taxReturns', name: 'Tax Returns', desc: 'Financial documents used to prove a petitioner\'s income for the Affidavit of Support.' }
+    ],
+
+    'U': [
+        { id: 'uscis', name: 'USCIS (U.S. Citizenship and Immigration Services)', desc: 'The government agency that processes visa applications and immigration benefits.' },
+        { id: 'uscisStatus', name: 'USCIS Case Status Online', desc: 'A website where applicants can check the progress of their applications.' },
+        { id: 'uscisCenter', name: 'USCIS Service Center', desc: 'The USCIS office where petitions and applications are processed.' },
+        { id: 'uscisWelcome', name: 'USCIS Welcome Notice', desc: 'A letter sent to new permanent residents after their green card is approved.' }
+    ],
+
+    'V': [
+        { id: 'visaBulletin', name: 'Visa Bulletin', desc: 'A monthly publication that shows visa availability for family-sponsored and employment-based immigrant visas.' },
+        { id: 'visaInterview', name: 'Visa Interview', desc: 'A required interview at a U.S. embassy or consulate for visa applicants.' },
+        { id: 'visaValidity', name: 'Visa Validity', desc: 'The period during which a visa can be used for travel to the U.S.' }
+    ],
+
+    'W': [
+        { id: 'workPermit', name: 'Work Permit (Employment Authorization Document - EAD)', desc: 'A document allowing non-citizens to work legally in the U.S. while their green card application is pending.' }
+    ]
+};
 
                 for (const letter in topics) {
                     document.write(`<div id="${letter}" class="topic-container" style="display: none;">`);
