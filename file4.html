@@ -6,43 +6,113 @@
     <title>Topic Selector</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f4f4f9 0%, #e8e8f3 100%);
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            min-height: 100vh;
         }
         .container {
             width: 80%;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 25px;
             background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
         h2 {
             text-align: center;
-        }
-        .letter-container, .topic-container {
+            color: #2c3e50;
             margin-bottom: 20px;
         }
-        .answer {
+        h2 span {
+            color: #1a5928;
+            font-weight: bold;
+            text-decoration: underline;
+            padding: 5px 15px;
+            border-radius: 4px;
+            background: rgba(26, 89, 40, 0.1);
+        }
+        .letter-container {
+            margin: 20px 0;
+            text-align: center;
             padding: 15px;
-            background-color: #3498db;
-            color: white;
+            background: #f8f9fa;
             border-radius: 8px;
+        }
+        .letter-container label {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 12px;
+            background-color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .letter-container label:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+        }
+        .letter-container input[type="radio"] {
+            margin-right: 5px;
+        }
+        .topic-container {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .topic-container h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .topic-container label {
+            display: block;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background-color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .topic-container label:hover {
+            background-color: #e9ecef;
+            transform: translateX(5px);
+        }
+        .answer {
+            padding: 20px;
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            color: white;
+            border-radius: 10px;
             display: none;
-            margin-top: 10px;
+            margin-top: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .answer h3 {
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+            color: white;
+        }
+        .answer p {
+            line-height: 1.6;
+            margin-bottom: 0;
+            font-size: 1.1em;
+        }
+        input[type="radio"] {
+            accent-color: #2980b9;
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h2><span style="color: darkgreen; font-weight: bold; text-decoration: underline;">GLOSSARY</span></h2>
-<h2>Select a Letter</h2>
+        <h2><span>GLOSSARY</span></h2>
+        <h2>Select a Letter</h2>
 
-        
         <div class="letter-container">
             <script>
                 document.write("<form>");
@@ -59,7 +129,7 @@
                 const topics = {
                     'A': [
                         { id: 'affidavit', name: 'Affidavit of Support (Form I-864)', desc: 'A form that a petitioner submits to prove financial ability to support the beneficiary.' },
-                        { id: 'anumber', name: 'Alien Registration Number (A-Number)', desc: 'A unique number assigned to certain non-U.S. citizens by USCIS.' },
+                        { id: 'anumber', name: 'Alien Registration Number (A-Number)', desc: 'A unique 8 or 9-digit number assigned by USCIS to foreign nationals. It starts with "A" followed by numbers (example: A123456789). Found on immigration documents like Green Cards, Employment Authorization Documents (EAD), and immigration court documents. It\'s a permanent identifier used for all future immigration matters and required for most immigration forms. Each person gets only one A-Number that stays with them throughout their immigration history in the United States.' },
                         { id: 'approval', name: 'Approval Notice (Form I-797)', desc: 'A USCIS notice confirming the approval of a petition or application.' }
                     ],
                     'B': [
@@ -70,6 +140,34 @@
                         { id: 'conditional', name: 'Conditional Green Card', desc: 'A two-year green card issued to spouses of U.S. citizens if the marriage is less than two years old.' },
                         { id: 'consular', name: 'Consular Processing', desc: 'The procedure for applying for a visa at a U.S. embassy or consulate abroad.' },
                         { id: 'cr1', name: 'CR1 Visa (Conditional Resident Visa)', desc: 'A visa for foreign spouses of U.S. citizens that grants conditional permanent residence.' }
+                    ],
+                    'D': [
+                        { id: 'ds160', name: 'DS-160 (Online Nonimmigrant Visa Application)', desc: 'An electronic form required for K1 visa applicants.' },
+                        { id: 'ds260', name: 'DS-260 (Immigrant Visa Application)', desc: 'An online application for immigrant visas, including the CR1 visa.' },
+                        { id: 'dualintent', name: 'Dual Intent', desc: 'A legal concept allowing K1 visa holders to enter the U.S. with the intent to both marry and apply for a green card.' }
+                    ],
+                    'E': [
+                        { id: 'enotif', name: 'E-Notification (Form G-1145)', desc: 'A form requesting text or email updates on case status from USCIS.' },
+                        { id: 'etravel', name: 'E-Travel Document', desc: 'A mandatory online registration for travelers entering or exiting the Philippines.' }
+                    ],
+                    'F': [
+                        { id: 'fiance', name: 'Fiancé(e) Visa (K1 Visa)', desc: 'A nonimmigrant visa allowing a foreign fiancé(e) to enter the U.S. to marry a U.S. citizen.' },
+                        { id: 'ds5540', name: 'Form DS-5540 (Public Charge Questionnaire)', desc: 'A form previously required for visa applicants to demonstrate they will not become a public charge (no longer in use).' },
+                        { id: 'i129f', name: 'Form I-129F (Petition for Alien Fiancé(e))', desc: 'The petition filed by a U.S. citizen to bring a fiancé(e) to the U.S. on a K1 visa.' },
+                        { id: 'i130', name: 'Form I-130 (Petition for Alien Relative)', desc: 'The form used to petition for a foreign spouse under the CR1 visa category.' },
+                        { id: 'i131', name: 'Form I-131 (Application for Travel Document)', desc: 'A form used to apply for Advance Parole, allowing travel while AOS is pending.' },
+                        { id: 'i485', name: 'Form I-485 (Application to Register Permanent Residence or Adjust Status)', desc: 'The form used for applying for a green card after entry on a K1 visa.' },
+                        { id: 'i693', name: 'Form I-693 (Report of Medical Examination and Vaccination Record)', desc: 'A required form completed by a USCIS-approved doctor for AOS applicants.' },
+                        { id: 'i751', name: 'Form I-751 (Petition to Remove Conditions on Residence)', desc: 'A form used to remove conditions on a two-year green card.' },
+                        { id: 'i765', name: 'Form I-765 (Application for Employment Authorization)', desc: 'A form that allows applicants to apply for a work permit while AOS is pending.' },
+                        { id: 'i944', name: 'Form I-944 (Declaration of Self-Sufficiency)', desc: 'A form previously required to assess an applicant\'s financial independence (no longer in use).' }
+                    ],
+                    'G': [
+                        { id: 'greencard', name: 'Green Card (Permanent Resident Card)', desc: 'A card that grants lawful permanent residence to immigrants in the U.S.' }
+                    ],
+                    'I': [
+                        { id: 'ir1', name: 'Immediate Relative (IR1 Visa)', desc: 'A visa category for spouses of U.S. citizens who have been married for over two years.' },
+                        { id: 'interview', name: 'Interview Appointment Letter', desc: 'A letter from USCIS or the U.S. embassy notifying applicants of their scheduled interview.' }
                     ],
                     'K': [
                         { id: 'k1', name: 'K1 Visa', desc: 'A visa that allows a fiancé(e) of a U.S. citizen to enter the U.S. and marry within 90 days.' },
@@ -119,6 +217,5 @@
             }
         }
     </script>
-
 </body>
 </html>
