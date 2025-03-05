@@ -34,9 +34,58 @@
             background-color: #FFE44D;
             transform: translateY(-2px);
         }
+        .plane-container {
+            position: fixed;
+            top: 20px;
+            width: 100%;
+            text-align: left;
+            z-index: -1; /* Changed to prevent iframe interaction issues */
+            pointer-events: none;
+        }
+
+        .plane-group {
+            display: inline-flex;
+            align-items: center;
+            animation: fly 15s linear infinite;
+            position: relative;
+            margin-left: -100px;
+            pointer-events: none;
+        }
+
+        .plane {
+            font-size: 40px;
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .visa-text {
+            position: absolute;
+            left: -158px;
+            font-size: 20px;
+            color: #1a5928;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            transform: rotate(0deg); 
+            pointer-events: none;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(100vw + 200px));
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="plane-container">
+        <div class="plane-group">
+            <div class="plane">✈️</div>
+            <div class="visa-text">FILIPINO VISA</div>
+        </div>
+    </div>
 
     <div class="header">
         <h1>"Work smarter, not harder."<a href="https://buymeacoffee.com/musikalangw" target="_blank" class="coffee-link">☕ Buy ROD a coffee click here</a></h1>
@@ -48,6 +97,5 @@
         <iframe src="file3.html"></iframe>
         <iframe src="file4.html"></iframe>
     </div>
-
 </body>
 </html>
