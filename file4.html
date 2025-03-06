@@ -272,5 +272,75 @@
             }
         }
     </script>
+        </div>
+    </div>
+
+    <div class="footer-links">
+        <h3>Additional Resources:</h3>
+        <a href="https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/glossary.html" target="_blank" class="footer-link">U.S. Department of State Visa Glossary</a>
+        <a href="https://www.uscis.gov/tools/glossary" target="_blank" class="footer-link">USCIS Official Glossary</a>
+    </div>
+
+    <style>
+        .footer-links {
+            text-align: center;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .footer-links h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .footer-link {
+            display: inline-block;
+            margin: 10px 15px;
+            padding: 8px 15px;
+            color: #1a5928;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            background-color: rgba(26, 89, 40, 0.1);
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <script>
+        function showTopics(letter) {
+            document.querySelectorAll('.topic-container').forEach(div => {
+                div.style.display = 'none';
+            });
+            document.querySelectorAll('.answer').forEach(div => {
+                div.style.display = 'none';
+            });
+            let selectedDiv = document.getElementById(letter);
+            if (selectedDiv) {
+                selectedDiv.style.display = 'block';
+            }
+        }
+
+        function showAnswer(topic) {
+            document.querySelectorAll('.answer').forEach(div => {
+                div.style.display = 'none';
+            });
+            let selectedAnswer = document.getElementById(topic);
+            if (selectedAnswer) {
+                selectedAnswer.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
 </body>
 </html>
