@@ -6,12 +6,12 @@
     <title>"Work smarter, not harder."</title>
     <style>
         body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background-color: #e6f3ff;  /* Light blue background */
-        margin: 0;
-        padding: 20px;
-        min-height: 100vh;
-    }    
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #e6f3ff;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }    
         .container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -44,34 +44,41 @@
         }
         .plane-container {
             position: fixed;
-            top: 20px;
+            top: 100px;
             width: 100%;
             text-align: left;
-            z-index: -1;
+            z-index: 1;
             pointer-events: none;
         }
         .plane-group {
             display: inline-flex;
+            flex-direction: row-reverse; 
             align-items: center;
             animation: fly 15s linear infinite;
             position: relative;
-            margin-left: -100px;
+            margin-left: 20px;
             pointer-events: none;
         }
         .plane {
-            font-size: 40px;
-            transform: rotate(45deg);
-            pointer-events: none;
+            position: relative;
+            z-index: 2;  
+        }
+        .plane img {
+            width: 90px;
+            height: auto;
+            transform: rotate(-5deg);
         }
         .visa-text {
             position: absolute;
-            left: -158px;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 100px;
             font-size: 20px;
             color: #1a5928;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            transform: rotate(0deg); 
-            pointer-events: none;
+            z-index: 1;
+            white-space: nowrap;
         }
         .clouds-container {
             position: fixed;
@@ -109,7 +116,9 @@
 
     <div class="plane-container">
         <div class="plane-group">
-            <div class="plane">✈️</div>
+            <div class="plane">
+                <img src="plane.png" alt="Plane">
+            </div>
             <div class="visa-text">FILIPINO VISA</div>
         </div>
     </div>
