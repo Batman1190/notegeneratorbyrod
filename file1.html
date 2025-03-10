@@ -54,6 +54,10 @@
             resize: vertical; /* Allows vertical resizing */
             background: #f1f1f1;
         }
+        .conditional-input {
+            display: none;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -67,14 +71,16 @@
         </select>
 
         <label>Spoke with:</label>
-        <input type="text" id="who" placeholder="Enter name..."style="width: 430px"/>
+        <input type="text" id="who" placeholder="Enter name..." style="width: 430px"/>
 
         <label>Reason for the Call:</label>
-        <select id="reason">
+        <select id="reason" onchange="toggleOtherInput('reason', 'reasonOther')">
             <option value="General Inquiry">General Inquiry</option>
             <option value="Petition Status">Petition Status</option>
+            <option value="Questionnaire Assistance">Questionnaire Assistance</option>
             <option value="Follow-up on Application">Follow-up on Application</option>
             <option value="Documents">Documents</option>
+            <option value="Romance Consultation">Romance Consultation</option>
             <option value="Payment Concern">Payment Concern</option>
             <option value="Looking for a Specific Agent">Looking for a Specific Agent</option>
             <option value="SRC">SRC</option>
@@ -82,15 +88,16 @@
             <option value="Requirements">Requirements</option>
             <option value="Other">Other</option>
         </select>
+        <input type="text" id="reasonOther" class="conditional-input" placeholder="Please specify">
 
         <label>Details:</label>
-        <textarea id="details" placeholder="Enter details..."style="width: 430px;"></textarea>
+        <textarea id="details" placeholder="Enter details..." style="width: 430px;"></textarea>
 
         <label>Follow-up Date (if any):</label>
-        <input type="date" id="followUpDate"style="width: 430px;">
+        <input type="date" id="followUpDate" style="width: 430px;">
 
         <label>Follow-up Time:</label>
-        <input type="time" id="followUpTime"style="width: 430px;">
+        <input type="time" id="followUpTime" style="width: 430px;">
 
         <label>Time Zone:</label>
         <select id="timeZone">
@@ -123,9 +130,25 @@
     </div>
 
     <script>
+        function toggleOtherInput(selectId, inputId) {
+            const selectElement = document.getElementById(selectId);
+            const inputElement = document.getElementById(inputId);
+            if (selectElement.value === 'Other') {
+                inputElement.style.display = 'block';
+            } else {
+                inputElement.style.display = 'none';
+                inputElement.value = '';
+            }
+        }
+
         function generateNote() {
             let output = document.getElementById("output");
-            let note = `${document.getElementById("callType").value} - Spoke with ${document.getElementById("who").value} - Reason: ${document.getElementById("reason").value} - Details: ${document.getElementById("details").value}`;
+            let callType = document.getElementById("callType").value;
+            let reason = document.getElementById("reason").value;
+            if (reason === 'Other') {
+                reason = document.getElementById("reasonOther").value;
+            }
+            let note = `${callType} - Spoke with ${document.getElementById("who").value} - Reason: ${reason} - Details: ${document.getElementById("details").value}`;
             
             if (document.getElementById("followUpDate").value) {
                 note += ` - Follow-up on: ${document.getElementById("followUpDate").value}`;
@@ -147,7 +170,9 @@
         function clearForm() {
             document.getElementById("callType").value = "Inbound";
             document.getElementById("who").value = "";
-            document.getElementById("reason").value = "         ";
+            document.getElementById("reason").value = "General Inquiry";
+            document.getElementById("reasonOther").style.display = 'none';
+            document.getElementById("reasonOther").value = '';
             document.getElementById("details").value = "";
             document.getElementById("followUpDate").value = "";
             document.getElementById("followUpTime").value = "";
